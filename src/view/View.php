@@ -1,5 +1,7 @@
 <?php
 
+require_once "model/Animal.php";
+
 class View{
         public String $title, $content;
         public function __construct(){
@@ -30,9 +32,9 @@ class View{
             $this->content = "content test";
         }
 
-        public function prepareAnimalPage($name, $species){
-            $this->title = "Page sur ".$name;
-            $this->content = $name." est un animal de l'espèce ".$species ;
+        public function prepareAnimalPage($animal){
+            $this->title = "Page sur ".$animal->name;
+            $this->content = $animal->name." est un animal de l'espèce ".$animal->species." agé(e) de ".$animal->age  ;
         }
         public function prepareUnknownAnimalPage(){
             $this->title = "Animal Inconnu";
