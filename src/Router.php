@@ -2,11 +2,12 @@
 
 require_once "view/View.php";
 require_once "control/Controller.php";
+require_once "model/AnimalStorageStub.php";
 
 class Router{
-    public function main(){
+    public function main($animalStorage){
         $view = new View($this);
-        $controller = new Controller($view);
+        $controller = new Controller($view, $animalStorage);
         if(key_exists("id", $_GET)){
             $controller->showInformation($_GET["id"]);
         }
