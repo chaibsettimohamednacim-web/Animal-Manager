@@ -34,6 +34,10 @@ class View{
             $this->title = "Page sur ".$name;
             $this->content = $name." est un animal de l'espèce ".$species ;
         }
+        public function prepareUnknownPage(){
+            $this->title = "Animal Inconnu";
+            $this->content = "Cet Animal ne figure pas dans la base de donnees" ;
+        }
 
 }
 

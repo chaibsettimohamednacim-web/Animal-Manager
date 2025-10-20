@@ -1,11 +1,13 @@
 <?php
 
 require_once "view/View.php";
+require_once "control/Controller.php";
 
 class Router{
     public function main(){
         $view = new View();
-        $view->prepareAnimalPage("Medor","Berger Allemend");
+        $controller = new Controller($view);
+        $controller->showInformation("medor");
         $view->render();
     }
 }
