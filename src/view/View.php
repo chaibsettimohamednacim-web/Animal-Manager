@@ -4,8 +4,11 @@ require_once "model/Animal.php";
 
 class View{
         public String $title, $content;
-        public function __construct(){
-
+        public Router $router;
+        public function __construct($router){
+            $this->title = "";
+            $this->content = "";
+            $this->router = $router;
         }
 
         public function render(){
@@ -15,8 +18,6 @@ class View{
                 <head>
                 <meta charset="utf-8">
                 <title>{$this->title}</title>
-                <link rel="stylesheet" href="style.css">
-                <script src="script.js"></script>
                 </head>
                 <body>
                     <h1>{$this->title}</h1>
@@ -48,6 +49,18 @@ class View{
                                     <button type="submit">Send</button>
                                 </form>
                                 EOT;
+        }
+
+        
+        public function prepareListPage($animals){
+            $this->title = "Liste des animaux";
+
+            $this->content = "<ul>";
+            foreach($animals as $id => $animal){
+                $this->content.="<li><a href='".$this->router->getAnimalURL($id)."'>Page sur ".$animal->name."</a></li>";
+            }
+            $this->content.="</ul>";
+
         }
 
 }
