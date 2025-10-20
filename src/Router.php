@@ -1,8 +1,12 @@
 <?php
 
+require_once "view/View.php";
+
 class Router{
     public function main(){
-        echo "Hello";
+        $view = new View();
+        $view->prepareAnimalPage("Medor","Berger Allemend");
+        $view->render();
     }
 }
 
