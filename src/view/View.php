@@ -34,9 +34,18 @@ class View{
             $this->title = "Page sur ".$name;
             $this->content = $name." est un animal de l'espèce ".$species ;
         }
-        public function prepareUnknownPage(){
+        public function prepareUnknownAnimalPage(){
             $this->title = "Animal Inconnu";
             $this->content = "Cet Animal ne figure pas dans la base de donnees" ;
+        }
+        public function prepareWelcomePage(){
+            $this->title = "Page d'acceuil";
+            $this->content = <<<EOT
+                                <form method="GET">
+                                    <input type="text" name="id">
+                                    <button type="submit">Send</button>
+                                </form>
+                                EOT;
         }
 
 }

@@ -7,7 +7,12 @@ class Router{
     public function main(){
         $view = new View();
         $controller = new Controller($view);
-        $controller->showInformation("medor");
+        if(key_exists("id", $_GET)){
+            $controller->showInformation($_GET["id"]);
+        }
+        else{
+            $controller->showWelcome();
+        }
         $view->render();
     }
 }

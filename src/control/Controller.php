@@ -14,11 +14,14 @@ class Controller{
     }
     public function showInformation($id) {
         if( key_exists($id, $this->dbAnimals)){
-            $this->view->prepareAnimalPage("Médor", "chien"); 
+            $this->view->prepareAnimalPage($this->dbAnimals[$id][0], $this->dbAnimals[$id][1]); 
         }
         else{
             $this->view->prepareUnknownAnimalPage();
         }
+    }
+    public function showWelcome(){
+        $this->view->prepareWelcomePage();
     }
 }
 
