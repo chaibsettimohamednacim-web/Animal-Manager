@@ -4,7 +4,6 @@ require_once "model/Animal.php";
 
 class View{
         public String $title, $content;
-        public Router $router;
         public function __construct($router){
             $this->title = "";
             $this->content = "";
@@ -43,12 +42,7 @@ class View{
         }
         public function prepareWelcomePage(){
             $this->title = "Page d'acceuil";
-            $this->content = <<<EOT
-                                <form method="GET">
-                                    <input type="text" name="id">
-                                    <button type="submit">Send</button>
-                                </form>
-                                EOT;
+            $this->content = "Bienvenue sur mon site";
         }
 
         
