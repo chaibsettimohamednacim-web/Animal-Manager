@@ -33,9 +33,33 @@ class Controller{
     }
 
     public function saveNewAnimal(array $data){
-        $a = new Animal($data['name'],$data['species'], $data['age']);
-        $this->animalStorage->create($a);
-        $this->view->prepareDebugPage($data);
+        $name ='';
+        $species ='';
+        $age='';
+        $errors =array();
+        if(key_exists('name',$data) && !empty($data['name'])){
+            $name = $data['name'];
+        }else{
+            $errors['name'] = "Veuillez saisir un nom correcte";
+        }
+        if( key_exists('species',$data) && !empty($data['species']) ){
+            $species = $data['species'];
+        }else{
+            $errors['species'] = "Veuillez saisir une espece correcte";
+        } 
+        if( key_exists('age',$data) && !empty($data['age'])){
+            $age = $data['age'];
+        }else{
+            $errors['age'] = "Veuillez saisir un age correcte";
+        }  
+        if(empty($errors)){ 
+            $a = new Animal($data['name'],$data['species'], $data['age']);
+            $this->animalStorage->create($a);
+            $this->view->prepareDebugPage($data);
+        }
+        else{
+            $this->view->prepareAnimalCreationPage($data, $errors);
+        }
     }
 }
 

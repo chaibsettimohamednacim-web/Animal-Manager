@@ -43,8 +43,8 @@ class View{
         }
 
         public function prepareAnimalPage($animal){
-            $this->title = "Page sur ".$animal->name;
-            $this->content = $animal->name." est un animal de l'espèce ".$animal->species." agé(e) de ".$animal->age  ;
+            $this->title = "Page sur ".htmlspecialchars($animal->name);
+            $this->content = htmlspecialchars($animal->name)." est un animal de l'espèce ".htmlspecialchars($animal->species)." agé(e) de ".htmlspecialchars($animal->age)  ;
         }
         public function prepareUnknownAnimalPage(){
             $this->title = "Animal Inconnu";
@@ -61,7 +61,7 @@ class View{
 
             $this->content = "<ul>";
             foreach($animals as $id => $animal){
-                $this->content.="<li><a href='".$this->router->getAnimalURL($id)."'>Page sur ".$animal->name."</a></li>";
+                $this->content.="<li><a href='".$this->router->getAnimalURL($id)."'>Page sur ".htmlspecialchars($animal->name)."</a></li>";
             }
             $this->content.="</ul>";
 
@@ -72,16 +72,44 @@ class View{
             $this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
         }
 
-        public function prepareAnimalCreationPage(){
+        public function prepareAnimalCreationPage(array $data=array(),array $errors=array()){
+            $name ='';
+            $species ='';
+            $age='';
+            if(key_exists('name',$data)){
+                $name = $data['name'];
+            } 
+            if( key_exists('species',$data)){
+                $species = $data['species'];
+            } 
+            if( key_exists('age',$data)){
+                $age = $data['age'];
+            }
+            $nameError ='';
+            $speciesError ='';
+            $ageError ='';
+            if(key_exists('name',$errors)){
+                $nameError = "<text id='error'>".$errors['name']."</text><br>";
+            } 
+            if( key_exists('species',$errors)){
+                $speciesError = "<text id='error'>".$errors['species']."</text><br>";
+            } 
+            if( key_exists('age',$errors)){
+                $ageError = "<text id='error'>".$errors['age']."</text><br>";
+            }
+
             $this->title = 'Ajout';
             $this->content = <<<EOF
                 <form action="{$this->router->getAnimalSaveURL()}" method="POST">
                     <label >nom animal:</label><br>
-                    <input type="text" id="nom" name="name"><br>
+                    {$nameError}
+                    <input type="text" id="nom" name="name" value="{$name}"><br>
                     <label >espece:</label><br>
-                    <input type="text" id="espece" name="species"><br>
+                    {$speciesError}
+                    <input type="text" id="espece" name="species" value="{$species}"><br>
                     <label >age:</label><br>
-                    <input type="text" id="age" name="age"><br>
+                    {$ageError}
+                    <input type="text" id="age" name="age"value="{$age}"><br>
                     <button type="submit">confirmer</button>
                 </form>
             EOF;
