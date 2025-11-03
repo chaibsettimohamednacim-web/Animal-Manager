@@ -7,16 +7,16 @@ class View{
         public function __construct($router){
             $this->title = "";
             $this->content = "";
+            $this->router = $router;
             $this->menu=<<<EOF
                             <nav class="menu">
                                     <ul>
                                     <li><a href=".">Accueil</a></li>
-                                    <li><a href=".">Couleurs</a></li>
-                                    <li><a href=".">Nouvelle couleur</a></li>		
+                                    <li><a href="{$this->router->getAnimalListURL()}">Liste des Animaux</a></li>
+                                    <li><a href="{$this->router->getAnimalCreationURL()}">Nouvel animal</a></li>		
                                 </ul>
                             </nav>
                         EOF;
-            $this->router = $router;
         }
 
         public function render(){
@@ -66,10 +66,25 @@ class View{
             $this->content.="</ul>";
 
         }
-        
+
         public function prepareDebugPage($variable) {
             $this->title = 'Debug';
             $this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
+        }
+
+        public function prepareAnimalCreationPage(){
+            $this->title = 'Ajout';
+            $this->content = <<<EOF
+                <form action="{$this->router->getAnimalSaveURL()}" method="POST">
+                    <label >nom animal:</label><br>
+                    <input type="text" id="nom" name="name"><br>
+                    <label >espece:</label><br>
+                    <input type="text" id="espece" name="species"><br>
+                    <label >age:</label><br>
+                    <input type="text" id="age" name="age"><br>
+                    <button type="submit">confirmer</button>
+                </form>
+            EOF;
         }
 
 }

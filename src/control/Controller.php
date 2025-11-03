@@ -27,6 +27,16 @@ class Controller{
     public function showList(){
         $this->view->prepareListPage($this->animalStorage->readAll());
     }
+
+    public function createNewAnimal(){
+        $this->view->prepareAnimalCreationPage();
+    }
+
+    public function saveNewAnimal(array $data){
+        $a = new Animal($data['name'],$data['species'], $data['age']);
+        $this->animalStorage->create($a);
+        $this->view->prepareDebugPage($data);
+    }
 }
 
 ?>
