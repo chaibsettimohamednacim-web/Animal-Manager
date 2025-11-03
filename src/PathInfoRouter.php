@@ -10,7 +10,7 @@ class PathInfoRouter {
         $controller = new Controller($view, $animalStorage);
 
         $path = $_SERVER['PATH_INFO'] ?? '/'; 
-        $path = trim($path, '/site.php/');  
+        $path = str_replace('/site.php/',"", $path);  
         if ($path === '') {
             $controller->showWelcome();
         } else if ($path === 'liste') {

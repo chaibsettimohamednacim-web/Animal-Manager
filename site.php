@@ -8,14 +8,16 @@ set_include_path("./src");
 /* Inclusion des classes utilisées dans ce fichier */
 require_once("Router.php");
 require_once("PathInfoRouter.php");
-require_once("model/AnimalStorageStub.php");
+require_once("model/AnimalStorageSession.php");
+
+session_start();
 /*
  * Cette page est simplement le point d'arrivée de l'internaute
  * sur notre site. On se contente de créer un routeur
  * et de lancer son main.
  */
 
-$animalStorage = new AnimalStorageStub();
+$animalStorage = new AnimalStorageSession();
 $router = new PathInfoRouter();
 $router->main($animalStorage);
 ?>

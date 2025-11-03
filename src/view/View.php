@@ -3,10 +3,19 @@
 require_once "model/Animal.php";
 
 class View{
-        public String $title, $content;
+        public String $title, $content, $menu;
         public function __construct($router){
             $this->title = "";
             $this->content = "";
+            $this->menu=<<<EOF
+                            <nav class="menu">
+                                    <ul>
+                                    <li><a href=".">Accueil</a></li>
+                                    <li><a href=".">Couleurs</a></li>
+                                    <li><a href=".">Nouvelle couleur</a></li>		
+                                </ul>
+                            </nav>
+                        EOF;
             $this->router = $router;
         }
 
@@ -19,6 +28,7 @@ class View{
                 <title>{$this->title}</title>
                 </head>
                 <body>
+                    {$this->menu}
                     <h1>{$this->title}</h1>
                     {$this->content}
                 </body>
@@ -55,6 +65,11 @@ class View{
             }
             $this->content.="</ul>";
 
+        }
+        
+        public function prepareDebugPage($variable) {
+            $this->title = 'Debug';
+            $this->content = '<pre>'.htmlspecialchars(var_export($variable, true)).'</pre>';
         }
 
 }
