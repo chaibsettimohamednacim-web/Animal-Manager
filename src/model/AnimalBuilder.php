@@ -11,8 +11,6 @@
             if ($data === null) {
                 $data = array(
                     self::NAME_REF => "test",
-                    /* valeur par défaut du code hexa tirée au hasard
-                    * pour rendre les tests plus agréables */
                     self::SPECIES_REF => "testeur",
                     self::AGE_REF => 100
                 );
