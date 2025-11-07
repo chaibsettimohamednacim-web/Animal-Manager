@@ -27,9 +27,9 @@
                 $this->errors[self::NAME_REF] = "Vous devez entrer un nom";
             if (!key_exists(self::SPECIES_REF, $this->data) || $this->data[self::SPECIES_REF] === "")
                 $this->errors[self::SPECIES_REF] = "Vous devez entrer une espece";
-            if( !key_exists('age',$this->data) || !$this->data['age'] === "")
+            if( !key_exists(self::AGE_REF,$this->data) || !$this->data[self::AGE_REF] === "")
                 $this->errors[self::AGE_REF] = "Vous devez entrer un age";
-            else if( !is_numeric($this->data['age']) || $this->data['age'] < 0)
+            else if( !is_numeric($this->data[self::AGE_REF]) || $this->data[self::AGE_REF] < 0)
                 $this->errors[self::AGE_REF] = "Vous devez entrer un age correcte";
 		    return count($this->errors) === 0;
         }
