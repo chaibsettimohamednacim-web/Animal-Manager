@@ -1,6 +1,7 @@
 <?php
 
 require_once "view/View.php";
+require_once "model/AnimalBuilder.php";
 require_once "model/Animal.php";
 require_once "model/AnimalStorage.php";
 
@@ -29,36 +30,20 @@ class Controller{
     }
 
     public function createNewAnimal(){
-        $this->view->prepareAnimalCreationPage();
+        $af = new AnimalBuilder();
+        $this->view->prepareAnimalCreationPage($af);
     }
 
     public function saveNewAnimal(array $data){
-        $name ='';
-        $species ='';
-        $age='';
-        $errors =array();
-        if(key_exists('name',$data) && !empty($data['name'])){
-            $name = $data['name'];
-        }else{
-            $errors['name'] = "Veuillez saisir un nom correcte";
-        }
-        if( key_exists('species',$data) && !empty($data['species']) ){
-            $species = $data['species'];
-        }else{
-            $errors['species'] = "Veuillez saisir une espece correcte";
-        } 
-        if( key_exists('age',$data) && !empty($data['age'])){
-            $age = $data['age'];
-        }else{
-            $errors['age'] = "Veuillez saisir un age correcte";
-        }  
-        if(empty($errors)){ 
-            $a = new Animal($data['name'],$data['species'], $data['age']);
-            $this->animalStorage->create($a);
-            $this->view->prepareDebugPage($data);
+        
+        $af = new AnimalBuilder($data);
+        if($af->isValid()){
+            $animal = $af->createAnimal();
+            $this->animalStorage->create($animal);
+            $this->view->prepareAnimalPage($animal);
         }
         else{
-            $this->view->prepareAnimalCreationPage($data, $errors);
+            $this->view->prepareAnimalCreationPage($af);
         }
     }
 }

@@ -19,7 +19,6 @@ class PathInfoRouter {
         } else if ($path === 'nouveau'){
             $controller->createNewAnimal();
         } else if ($path == 'sauverNouveau'){
-            var_export($_POST);
             $controller->saveNewAnimal($_POST);
         }else {
             $controller->showInformation($path);
