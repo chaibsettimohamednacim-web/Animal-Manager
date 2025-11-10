@@ -40,5 +40,9 @@ class PathInfoRouter {
     public function getAnimalSaveURL(){
         return "/exoMVCR/site.php/sauverNouveau";
     }
+    public function POSTredirect($url, $feedback){
+        header("Location:".$url,true ,303);
+        exit();
+    }
 }
 ?>

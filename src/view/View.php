@@ -83,6 +83,10 @@ class View{
 		$this->content = $s;
     }
 
+    public function displayAnimalCreationSuccess($id){
+        $this->router->POSTRedirect($this->router->getAnimalURL($id),"test");
+    }
+
     protected function getFormFields(AnimalBuilder $builder) {
         $data = $builder->getData();
         $s = "";

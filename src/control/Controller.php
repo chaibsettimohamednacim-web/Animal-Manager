@@ -39,8 +39,8 @@ class Controller{
         $af = new AnimalBuilder($data);
         if($af->isValid()){
             $animal = $af->createAnimal();
-            $this->animalStorage->create($animal);
-            $this->view->prepareAnimalPage($animal);
+            $id = $this->animalStorage->create($animal);
+            $this->view->displayAnimalCreationSuccess($id);
         }
         else{
             $this->view->prepareAnimalCreationPage($af);
