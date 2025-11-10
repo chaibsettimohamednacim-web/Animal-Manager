@@ -4,12 +4,13 @@ require_once "model/Animal.php";
 require_once "model/AnimalBuilder.php";
 
 class View{
-    private String $title, $content, $menu;
+    private String $title, $content, $menu, $feedback;
     private $router;
-    public function __construct($router){
+    public function __construct($router, $feedback){
         $this->title = "";
         $this->content = "";
         $this->router = $router;
+        $this->feedback = $feedback;
         $this->menu=<<<EOF
                         <nav class="menu">
                                 <ul>
@@ -31,6 +32,7 @@ class View{
             <link rel="stylesheet" href="/exoMVCR/skin/screen.css" />
             </head>
             <body>
+                <h1>{$this->feedback}</h1>
                 {$this->menu}
                 <h1>{$this->title}</h1>
                 {$this->content}
@@ -84,7 +86,7 @@ class View{
     }
 
     public function displayAnimalCreationSuccess($id){
-        $this->router->POSTRedirect($this->router->getAnimalURL($id),"test");
+        $this->router->POSTRedirect($this->router->getAnimalURL($id),"Creation success");
     }
 
     protected function getFormFields(AnimalBuilder $builder) {

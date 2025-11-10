@@ -6,9 +6,15 @@ require_once "model/AnimalStorageStub.php";
 
 class PathInfoRouter {
     public function main($animalStorage) {
-        $view = new View($this);
+        if(session_status() === PHP_SESSION_NONE)
+            session_start();
+        $feedback = "";
+        if(key_exists("feedback", $_SESSION)){
+            $feedback = $_SESSION['feedback'];
+        }
+        $view = new View($this,$feedback);
+        unset($_SESSION['feedback']);
         $controller = new Controller($view, $animalStorage);
-
         $path = $_SERVER['PATH_INFO'] ?? ''; 
         $path = str_replace('/site.php/',"", $path);  
         $path = trim($path, '/');
@@ -41,6 +47,7 @@ class PathInfoRouter {
         return "/exoMVCR/site.php/sauverNouveau";
     }
     public function POSTredirect($url, $feedback){
+        $_SESSION['feedback'] = $feedback;
         header("Location:".$url,true ,303);
         exit();
     }
