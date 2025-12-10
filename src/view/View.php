@@ -48,8 +48,8 @@ class View{
     }
 
     public function prepareAnimalPage($animal){
-        $this->title = "Page sur ".htmlspecialchars($animal->name);
-        $this->content = htmlspecialchars($animal->name)." est un animal de l'espèce ".htmlspecialchars($animal->species)." agé(e) de ".htmlspecialchars($animal->age)  ;
+        $this->title = "Page sur ".htmlspecialchars($animal->getName());
+        $this->content = htmlspecialchars($animal->getName())." est un animal de l'espèce ".htmlspecialchars($animal->getSpecies())." agé(e) de ".htmlspecialchars($animal->getAge())  ;
     }
     public function prepareUnknownAnimalPage(){
         $this->title = "Animal Inconnu";
@@ -65,7 +65,7 @@ class View{
 
         $this->content = "<ul>";
         foreach($animals as $id => $animal){
-            $this->content.="<li><a href='".$this->router->getAnimalURL($id)."'>Page sur ".htmlspecialchars($animal->name)."</a></li>";
+            $this->content.="<li><a href='".$this->router->getAnimalURL($id)."'>Page sur ".htmlspecialchars($animal->getName())."</a></li>";
         }
         $this->content.="</ul>";
 
@@ -77,7 +77,7 @@ class View{
     }
 
     public function prepareAnimalCreationPage(AnimalBuilder $builder){
-        $this->title = "Ajouter votre couleur";
+        $this->title = "Ajouter votre Animal";
 		$s = '<form action="'.$this->router->getAnimalSaveURL().'" method="POST">'."\n";
 		$s .= self::getFormFields($builder);
 		$s .= "<button>Créer</button>\n";
