@@ -9,3 +9,4 @@ l'étudiant Aris Bensadi a fait complément 2 API
 
 lien vers le site : https://dev-chaibse231.users.info.unicaen.fr/exoMVCR/site.php/
 
+lien vers api : https://dev-chaibse231.users.info.unicaen.fr/exoMVCR/api.php?collection=animaux
