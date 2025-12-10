@@ -4,6 +4,7 @@
         public const NAME_REF= "nom";
         public const SPECIES_REF = "espece";
         public const AGE_REF = "age";
+        public const IMAGE_REF = "image";
         protected $data;
         protected $errors;
 
@@ -12,7 +13,8 @@
                 $data = array(
                     self::NAME_REF => "test",
                     self::SPECIES_REF => "testeur",
-                    self::AGE_REF => 100
+                    self::AGE_REF => 100,
+                    self::IMAGE_REF => "chemin"
                 );
 		    }
             $this->data = $data;
@@ -25,6 +27,8 @@
                 $this->errors[self::NAME_REF] = "Vous devez entrer un nom";
             if (!key_exists(self::SPECIES_REF, $this->data) || $this->data[self::SPECIES_REF] === "")
                 $this->errors[self::SPECIES_REF] = "Vous devez entrer une espece";
+            if (!key_exists(self::IMAGE_REF, $this->data) || empty($this->data[self::IMAGE_REF]))
+                $this->errors[self::IMAGE_REF] = "Vous devez entrer une image";
             if( !key_exists(self::AGE_REF,$this->data) || !$this->data[self::AGE_REF] === "")
                 $this->errors[self::AGE_REF] = "Vous devez entrer un age";
             else if( !is_numeric($this->data[self::AGE_REF]) || $this->data[self::AGE_REF] < 0)
@@ -36,9 +40,10 @@
 
             if (!key_exists(self::NAME_REF, $this->data) 
                 || !key_exists(self::SPECIES_REF, $this->data)
+                || !key_exists(self::IMAGE_REF, $this->data)
                 || !key_exists(self::AGE_REF, $this->data))
                 throw new Exception("Missing fields for animal creation");
-            return new Animal($this->data[self::NAME_REF], $this->data[self::SPECIES_REF], $this->data[self::AGE_REF]);
+            return new Animal($this->data[self::NAME_REF], $this->data[self::SPECIES_REF], $this->data[self::AGE_REF],$this->data[self::IMAGE_REF]);
         }
 
         public function getData(){

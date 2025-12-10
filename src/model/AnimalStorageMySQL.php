@@ -26,13 +26,13 @@ class AnimalStorageMySQL implements AnimalStorage {
 	}
 	/** Implémentation de la méthode de AnimalStorage */
 	public function read($id) {
-		$requete = 'SELECT name, species, age FROM animals WHERE id = :id';
+		$requete = 'SELECT name, species, age,image FROM animals WHERE id = :id';
 		$stmt = $this->dbh->prepare($requete);
 		$stmt->bindParam(':id', $id, PDO::PARAM_INT); 
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if ($row) {
-			return new Animal($row['name'], $row['species'], $row['age']);
+			return new Animal($row['name'], $row['species'], $row['age'],$row['image']);
 		} else {
 			return null;
 		}
@@ -44,7 +44,7 @@ class AnimalStorageMySQL implements AnimalStorage {
 		$sth->execute();
 		$db = $sth->fetchAll();
 		foreach ($db as $key => $value) {
-			$animal = new Animal($value["name"],$value["species"],$value["age"]);
+			$animal = new Animal($value["name"],$value["species"],$value["age"],$value['image']);
 			$this->tab[$value["id"]] = $animal;
 		}
 		return $this->tab;
@@ -55,10 +55,13 @@ class AnimalStorageMySQL implements AnimalStorage {
 		$name = $a->getName();
 		$species = $a->getSpecies();
 		$age = $a->getAge();
-		$sth = $this->dbh->prepare('INSERT INTO animals (name, species,age) VALUES ( :name,:species,:age);');
+		$image = $a->getImage();
+		$sth = $this->dbh->prepare('INSERT INTO animals (name, species,age,image) VALUES ( :name,:species,:age,:image);');
 		$sth->bindValue(":name", $name, PDO::PARAM_STR);
     	$sth->bindValue(":species", $species, PDO::PARAM_STR);
 		$sth->bindValue(":age", $age, PDO::PARAM_STR);
+		$sth->bindValue(":image", $image, PDO::PARAM_STR);
+
 		$sth->execute();
 		return $this->dbh->lastInsertId();
 		

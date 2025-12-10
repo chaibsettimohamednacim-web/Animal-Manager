@@ -49,7 +49,22 @@ class View{
 
     public function prepareAnimalPage($animal){
         $this->title = "Page sur ".htmlspecialchars($animal->getName());
-        $this->content = htmlspecialchars($animal->getName())." est un animal de l'espèce ".htmlspecialchars($animal->getSpecies())." agé(e) de ".htmlspecialchars($animal->getAge())  ;
+        $imagePath = '/exoMVCR/'.$animal->getImage(); 
+        $name = htmlspecialchars($animal->getName());
+        $imageHtml = <<<EOT
+        <figure>
+            <img src="{$imagePath}" alt="Image de {$name}" class="sample">
+            <figcaption>{$name}</figcaption>
+        </figure>
+        EOT;
+        $details = $name." est un animal de l'espèce ".htmlspecialchars($animal->getSpecies())." agé(e) de ".htmlspecialchars($animal->getAge())  ;
+        $this->content = '<div class="animal-page-content">';
+        $this->content .= $imageHtml; 
+        $this->content .= '<div class="animal-details-text">';
+        $this->content .= '<h2>Détails de l\'animal</h2>';
+        $this->content .= '<p>' . $details . '</p>';
+        $this->content .= '</div>';
+        $this->content .= '</div>'; 
     }
     public function prepareUnknownAnimalPage(){
         $this->title = "Animal Inconnu";
@@ -78,7 +93,7 @@ class View{
 
     public function prepareAnimalCreationPage(AnimalBuilder $builder){
         $this->title = "Ajouter votre Animal";
-		$s = '<form action="'.$this->router->getAnimalSaveURL().'" method="POST">'."\n";
+		$s = '<form action="'.$this->router->getAnimalSaveURL().'" method="POST" enctype="multipart/form-data">'."\n";
 		$s .= self::getFormFields($builder);
 		$s .= "<button>Créer</button>\n";
 		$s .= "</form>\n";
@@ -118,6 +133,11 @@ class View{
         if ($err !== null && key_exists(AnimalBuilder::AGE_REF, $err))
             $s .= ' <span class="error">'.$err[AnimalBuilder::AGE_REF].'</span>';
         $s .= '</label></p>'."\n";
+        $s .= '<p><label>Image de l\'animal : <input type="file" name="'.AnimalBuilder::IMAGE_REF.'"/> ';
+        if ($err !== null && key_exists(AnimalBuilder::IMAGE_REF, $err))
+            $s .= ' <span class="error">'.$err[AnimalBuilder::IMAGE_REF].'</span>';
+        $s .="</label></p>\n";
+
         return $s;
     }
 

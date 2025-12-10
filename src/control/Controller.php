@@ -34,8 +34,19 @@ class Controller{
         $this->view->prepareAnimalCreationPage($af);
     }
 
-    public function saveNewAnimal(array $data){
-        
+   public function saveNewAnimal(array $data){
+        $movePath = null;
+        if (isset($_FILES[AnimalBuilder::IMAGE_REF]) && $_FILES[AnimalBuilder::IMAGE_REF]['error'] !== UPLOAD_ERR_NO_FILE) {
+            $imageTmpPath = $_FILES[AnimalBuilder::IMAGE_REF]['tmp_name'];
+            $imageName = basename($_FILES[AnimalBuilder::IMAGE_REF]['name']);
+            $rootDir = dirname(__DIR__, 2);
+            $movePath = $rootDir . '/images/' . $imageName; 
+            if ($_FILES[AnimalBuilder::IMAGE_REF]['error'] === UPLOAD_ERR_OK && move_uploaded_file($imageTmpPath, $movePath)) {
+                $data[AnimalBuilder::IMAGE_REF] = 'images/' . $imageName; 
+            } else if ($_FILES[AnimalBuilder::IMAGE_REF]['error'] !== UPLOAD_ERR_OK) {
+                 $data[AnimalBuilder::IMAGE_REF] = null;
+            }
+        } 
         $af = new AnimalBuilder($data);
         if($af->isValid()){
             $animal = $af->createAnimal();
@@ -43,9 +54,14 @@ class Controller{
             $this->view->displayAnimalCreationSuccess($id);
         }
         else{
+            if ($movePath !== null && $data[AnimalBuilder::IMAGE_REF] === null && file_exists($movePath)) {
+                unlink($movePath); 
+            }
             $this->view->prepareAnimalCreationPage($af);
         }
     }
 }
+
+
 
 ?>
