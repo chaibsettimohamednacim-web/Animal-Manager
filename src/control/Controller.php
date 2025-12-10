@@ -39,10 +39,12 @@ class Controller{
         if (isset($_FILES[AnimalBuilder::IMAGE_REF]) && $_FILES[AnimalBuilder::IMAGE_REF]['error'] !== UPLOAD_ERR_NO_FILE) {
             $imageTmpPath = $_FILES[AnimalBuilder::IMAGE_REF]['tmp_name'];
             $imageName = basename($_FILES[AnimalBuilder::IMAGE_REF]['name']);
+            $fileExtension = pathinfo($imageName, PATHINFO_EXTENSION);
+            $uniqueName = hash('sha256', time() . $imageName) . '.' . $fileExtension;
             $rootDir = dirname(__DIR__, 2);
-            $movePath = $rootDir . '/images/' . $imageName; 
+            $movePath = $rootDir . '/images/' . $uniqueName;
             if ($_FILES[AnimalBuilder::IMAGE_REF]['error'] === UPLOAD_ERR_OK && move_uploaded_file($imageTmpPath, $movePath)) {
-                $data[AnimalBuilder::IMAGE_REF] = 'images/' . $imageName; 
+                $data[AnimalBuilder::IMAGE_REF] = 'images/' . $uniqueName;
             } else if ($_FILES[AnimalBuilder::IMAGE_REF]['error'] !== UPLOAD_ERR_OK) {
                  $data[AnimalBuilder::IMAGE_REF] = null;
             }

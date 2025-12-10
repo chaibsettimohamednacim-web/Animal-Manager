@@ -1,5 +1,82 @@
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    max-width: 60em;
+    margin: auto;
+}
+
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+.gallery {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-flow: row wrap; 
+}
+
+.gallery a {
+    display: flex;
+    max-width: 20em;
+    border: 1px solid black;
+    text-decoration: none;
+    color: inherit;
+    padding: .5em;
+    align-items: center;
+    margin: .2em;
+}
+
+.gallery a:hover {
+    box-shadow: inset 0px 0px 1px 1px grey;
+}
+
+.gallery h3 {
+    margin: .5em;
+}
+
+
+.gallery .sample {
+    height: 2em;
+    width: 4em;
+}
+
+
+
+input::invalid {
+    border: 1px solid red;
+}
+
+label .error {
+    color: red;
+    font-weight: bold;
+}
+
+
+.feedback {
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    background: crimson;
+    border-radius: 1em;
+    margin: 1em auto;
+    max-width: 90%;
+    padding: .5em;
+}
+
+
+
 .animal-page-content {
-    
+
     display: flex; 
     flex-wrap: wrap; 
     gap: 30px; 
@@ -11,12 +88,12 @@
 }
 
 figure {
-	
-	text-align: center;
+
+    text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
     border: 1px solid #ddd;
-	padding: 1em;
-	max-width: 350px;
+    padding: 1em;
+    max-width: 350px;
     margin: 0; 
     border-radius: 10px;
     background-color: #ffffff;
@@ -24,19 +101,22 @@ figure {
 }
 
 figure .sample {
-	height: 300px;
-	width: 300px; 
+
+    height: 300px;
+    width: 300px; 
     object-fit: cover; 
     border-radius: 8px;
-	margin: .5em auto; 
+    margin: .5em auto; 
     display: block; 
     border: 3px solid #4A90E2; 
 }
 
 .animal-details-text {
-    
+
     flex-grow: 1;
 }
+
+
 @media (max-width: 768px) {
     .animal-page-content {
         flex-direction: column; 
