@@ -12,7 +12,6 @@ include('connection.php');
 
 $dbh = connecter();
 $animalStorage = new AnimalStorageMySQL($dbh);
-
 $router = new PathInfoRouter();
 $router->main($animalStorage);
 ?>

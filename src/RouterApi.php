@@ -11,7 +11,7 @@ class RouterApi{
         if ( key_exists("collection",$_GET) && $_GET['collection'] === 'animaux' ) {
             if (key_exists("id",$_GET)) {
                 $id = (int) $_GET['id']; 
-                $controller->showInformation($id);  
+                $controller->showInformation($id);
             }
             else {
                 $controller->showList();

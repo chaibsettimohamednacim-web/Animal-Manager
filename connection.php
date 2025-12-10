@@ -2,7 +2,7 @@
 
 function connecter(): ?PDO
 {
-    require_once('../../../private/mysql_config.php');
+    require_once('/users/chaibse231/private/mysql_config.php');
 
     $options = [
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
