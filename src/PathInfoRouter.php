@@ -34,17 +34,17 @@ class PathInfoRouter {
     }
 
     public function getAnimalURL($id): string {
-        return "/exoMVCR/site.php/".$id; 
+        return "../site.php/".$id; 
     }
     public function getAnimalListURL(): string {
-        return "/exoMVCR/site.php/liste"; 
+        return "../site.php/liste"; 
     }
     public function getAnimalCreationURL(){
-        return "/exoMVCR/site.php/nouveau";
+        return "../site.php/nouveau";
     }
 
     public function getAnimalSaveURL(){
-        return "/exoMVCR/site.php/sauverNouveau";
+        return "../site.php/sauverNouveau";
     }
     public function POSTredirect($url, $feedback){
         $_SESSION['feedback'] = $feedback;

@@ -48,8 +48,9 @@ class View{
     }
 
     public function prepareAnimalPage($animal){
+       
         $this->title = "Page sur ".htmlspecialchars($animal->getName());
-        $imagePath = '/exoMVCR/'.$animal->getImage(); 
+        $imagePath = '../'.$animal->getImage(); 
         $name = htmlspecialchars($animal->getName());
         $imageHtml = <<<EOT
         <figure>

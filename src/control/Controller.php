@@ -6,7 +6,7 @@ require_once "model/Animal.php";
 require_once "model/AnimalStorage.php";
 
 class Controller{
-    public View $view;
+    public $view;
     public AnimalStorage $animalStorage ;
     public function __construct($view, $animalStorage){
         $this->view = $view;
